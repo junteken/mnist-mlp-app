@@ -5,6 +5,12 @@ RUN mkdir /workspace
 WORKDIR /workspace
 COPY . /workspace
 
-RUN pip install keras numpy pillow
+RUN apt-get update
+RUN apt-get install -y libgl1-mesa-dev
+RUN pip3 install flask pillow keras numpy
 
-CMD python3 mnist_mlp.py
+COPY . .
+
+EXPOSE 80
+ENTRYPOINT ["python"]
+CMD ["server.py"]
